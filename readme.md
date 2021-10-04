@@ -1,65 +1,40 @@
 <p align="center">
-<img src="https://img.shields.io/github/contributors/NeticTeam/AirKernel.svg"/>
-<img src="https://img.shields.io/github/forks/NeticTeam/AirKernel.svg"/>
-<img src="https://img.shields.io/github/stars/NeticTeam/AirKernel.svg"/>
-<img src="https://img.shields.io/github/issues/NeticTeam/AirKernel.svg"/>
-<img src="https://github.com/NeticTeam/AirKernel/actions/workflows/build.yml/badge.svg"/>
-<img src="https://app.codacy.com/project/badge/Grade/fd5a7833d434455e8c455fce709f0b78"/>
+<img src="https://img.shields.io/github/contributors/corruptOS/corruptKernel.svg"/>
+<img src="https://img.shields.io/github/forks/corruptOS/corruptKernel.svg"/>
+<img src="https://img.shields.io/github/stars/corruptOS/corruptKernel.svg"/>
+<img src="https://img.shields.io/github/issues/corruptOS/corruptKernel.svg"/>
+<img src="https://github.com/corruptOS/corruptKernel/actions/workflows/build.yml/badge.svg"/>
+<img src="https://app.codacy.com/project/badge/Grade/07eccca76af44130928ab52eb2da0800"/>
 </p>
   <h3 align="center">AirKernel</h3>
   <p align="center">
-  ⚡ AirKernel is an UEFI kernel (UEFI bootloader)
+  ⚡ corruptKernel is an UEFI kernel (UEFI bootloader)
   <br/>
-  <a href="https://github.com/NeticTeam/AirKernel/issues/new?labels=bug">Report bug</a>
+  <a href="https://github.com/corruptOS/corruptKernel/issues/new?labels=bug">Report bug</a>
   |
-  <a href="https://github.com/NeticTeam/AirKernel/issues/new?labels=feature">Request a feature</a>
+  <a href="https://github.com/corruptOS/corruptKernel/issues/new?labels=feature">Request a feature</a>
   </p>
 <br/>
 
 ## 📲 Download
 ### Kernel
-You can download latest release [here](https://github.com/NeticTeam/AirKernel/releases)<br/>
-Or you can download latest Actions build from [here](https://github.com/NeticTeam/AirKernel/actions)<br/>
-Be sure that it's "dev" not "stable" one, as all really stable versions should be in releases.<br/>
+You can download latest release [here](https://github.com/corruptOS/corruptKernel/releases)<br/>
+Or you can download latest Actions build from [here](https://github.com/corruptOS/corruptKernel/actions)<br/>
 ### OS
 There's no OS option available for now, beacuse kernel is incomplete.
 
-## Showcase
-<a href='https://youtu.be/bhx9Phf49ok'>Click me!</a>
-
 ## ❗️ Requirements
-### Debian/Debian-based
-```sh
-sudo apt install gcc g++ qemu qemu-system make mtools nasm git moreutils
-```
 ### Arch/Arch-based
 ```sh
-sudo pacman -S base-devel qemu make mtools nasm git moreutils
+sudo pacman -S base-devel qemu make mtools nasm git
 ```
-### Gentoo
-```sh
-sudo emerge --ask app-emulation/qemu sys-fs/mtools dev-vcs/git dev-lang/nasm sys-apps/moreutils
-```
-
-## 💻 Plans
-
-### Memory
-- [x] Heap
-- [ ] Paging
-
 ## ❓ How to run
-```sh
-make
-make run
-```
-
+Run `make` to build everything with corruptOS.img file</br>
+Run `make runall` to build everything and run corruptOS.img file
 ## 📚 Credits
 Kernel Base: [PonchoOS](https://github.com/absurdponcho/ponchoos)
 
 Tutorials: [OSDev](https://wiki.osdev.org)
 
-## 👥 Developers
-Leader: [z3r0memory](https://github.com/z3r0memory)
-
-Maintainer: [TheAirBlow](https://github.com/theairblow)
-
+## 👥 Contributors
+Leader: [TheAirBlow](https://github.com/theairblow)
