@@ -54,7 +54,7 @@ endif
 
 LDFLAGS		+= -shared -Bsymbolic -L../lib -L../gnuefi $(CRTOBJS)
 
-LOADLIBES	+= -l../inc/efi -lgnuefi
+LOADLIBES	+= -linc -lgnuefi
 LOADLIBES	+= $(LIBGCC)
 LOADLIBES	+= -T $(LDSCRIPT)
 
