@@ -13,6 +13,8 @@ jobs:
       run: make -C ./bootloader/gnu-efi
     - name: Build bootloader
       run: make -C ./bootloader
+    - name: Setup directories
+      run: make -C ./kernel setup
     - name: Build kernel
       run: make -C ./kernel
     - name: Build image
