@@ -22,7 +22,6 @@ You can download latest release [here](https://github.com/corruptOS/corruptKerne
 Or you can download latest Actions build from [here](https://github.com/corruptOS/corruptKernel/actions)<br/>
 ### OS
 There's no OS option available for now, beacuse kernel is incomplete.
-
 ## ❗️ Requirements
 ### Arch/Arch-based
 ```sh
@@ -32,8 +31,7 @@ sudo pacman -S base-devel qemu make mtools nasm git
 Run `make` to build everything with corruptOS.img file</br>
 Run `make runall` to build everything and run corruptOS.img file
 ## 📚 Credits
-Kernel Base: [PonchoOS](https://github.com/absurdponcho/ponchoos)
-
+Kernel Base: [PonchoOS](https://github.com/absurdponcho/ponchoos)</br>
 Tutorials: [OSDev](https://wiki.osdev.org)
 
 ## 👥 Contributors
