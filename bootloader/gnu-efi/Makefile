@@ -7,7 +7,6 @@ VPATH = $(SRCDIR)
 
 all:
 	cd gnuefi && make
-	cd apps && make
 	cd lib && make
 
 .PHONY: depend
