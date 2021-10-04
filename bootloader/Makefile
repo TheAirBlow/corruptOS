@@ -3,7 +3,7 @@ VPATH = $(SRCDIR)
 include $(SRCDIR)/gnu-efi/Make.defaults
 
 CPPFLAGS	+= -D__KERNEL__ -I/usr/src/sys/build/include
-CRTOBJS		= gnu-efi/x86_64/gnuefi/crt0-efi-$(ARCH).o
+CRTOBJS		= gnu-efi/gnuefi/crt0-efi-$(ARCH).o
 LDSCRIPT	= gnu-efi/gnuefi/elf_$(ARCH)_efi.lds
 LDFLAGS		+= -shared -Bsymbolic -L./gnu-efi/lib -L./gnu-efi/gnuefi $(CRTOBJS)
 LOADLIBES	+= -lefi -lgnuefi
