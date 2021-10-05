@@ -1,6 +1,7 @@
 #include <video/gop.h>
 #include <debug/stack.h>
 void panic(const char* message, registers* regs){
+    /*
     newline();
     kprint("--[ Kernel panic: ", 0xFFFFFF);
     kprint(message, 0xFFFFFF);
@@ -17,4 +18,5 @@ void panic(const char* message, registers* regs){
     kprint("  EDX32: 0x", 0xFFFFFF);
     kprint(to_hstring32(regs->edx32), 0xFFFFFF);
     for(;;);
+    */
 }

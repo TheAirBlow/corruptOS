@@ -1,5 +1,4 @@
-#include <lib/stdlib.h>
-typedef signed long long int int64;
+#include "cstr.h"
 char uintTo_StringOutput[128];
 const char* to_string64(uint64_t value){
     uint8_t size;

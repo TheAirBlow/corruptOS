@@ -20,6 +20,7 @@ void* memset(void* bufptr, int value, size_t size) {
 		buf[i] = (unsigned char) value;
 	return bufptr;
 }
+
 void mm_init(uint32_t kernel_end)
 {
 	last_alloc = kernel_end + 0x1000;
@@ -28,8 +29,6 @@ void mm_init(uint32_t kernel_end)
 	pheap_begin = pheap_end - (MAX_PAGE_ALIGNED_ALLOCS * 4096);
 	heap_end = pheap_begin;
     pheap_desc = (uint8_t *)malloc(MAX_PAGE_ALIGNED_ALLOCS);
-    kprint("[heap] last_alloc: ", 0xFFFFFF);
-	kprint(to_hstring32(last_alloc), 0xFFFFFF);
 }
 
 void free(void *mem)

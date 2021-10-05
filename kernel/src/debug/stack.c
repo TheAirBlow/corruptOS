@@ -51,6 +51,7 @@ registers* dump_registers() {
 }
 
 void StackTrace(registers* regs){
+    /*
     newline();
     kprint("EAX32: 0x", 0xFFFFFF);
     kprint(to_hstring32(regs->eax32), 0xFFFFFF);
@@ -60,4 +61,5 @@ void StackTrace(registers* regs){
     kprint(to_hstring32(regs->ecx32), 0xFFFFFF);
     kprint(" EDX32: 0x", 0xFFFFFF);
     kprint(to_hstring32(regs->edx32), 0xFFFFFF);
+    */
 }
