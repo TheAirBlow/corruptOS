@@ -15,6 +15,9 @@ bootloader:
 	make -C ./bootloader/gnu-efi
 	make -C ./bootloader
 
+setup:
+	make -C ./kernel setup
+
 kernel: make -C ./kernel
 buildimg: make -C ./kernel buildimg
 run: make -C ./kernel run

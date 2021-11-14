@@ -31,8 +31,8 @@ link:
 	$(LD) $(LDFLAGS) -o $(BUILDDIR)/kernel.elf $(OBJS)
 
 setup:
-	@mkdir $(BUILDDIR)
-	@mkdir $(OBJDIR)
+	@mkdir -p $(BUILDDIR)
+	@mkdir -p $(OBJDIR)
 
 clean:
 	@rm -rf $(BUILDDIR)
