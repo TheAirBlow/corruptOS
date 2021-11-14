@@ -10,7 +10,7 @@
   <p align="center">
   ⚡ corruptKernel is an UEFI kernel (UEFI bootloader)
   <br/>
-  <a href="https://github.com/corruptTeam/corruptKernel/issues/new?labels=bug">Report bug</a>
+  <a href="https://github.com/corruptTeam/corruptKernel/issues/new?labels=bug">Report a bug</a>
   |
   <a href="https://github.com/corruptTeam/corruptKernel/issues/new?labels=feature">Request a feature</a>
   </p>
@@ -28,11 +28,11 @@ There's no OS option available for now, beacuse kernel is incomplete.
 sudo pacman -S base-devel qemu make mtools nasm git
 ```
 ## ❓ How to run
-Run `make` to build everything with corruptOS.img file</br>
-Run `make runall` to build everything and run corruptOS.img file
+Run `make` to build everything with `corruptOS.img` fimage ile</br>
+Run `make runall` to build everything and run `corruptOS.img` image file using QEMU
 ## 📚 Credits
 Kernel Base: [PonchoOS](https://github.com/absurdponcho/ponchoos)</br>
 Tutorials: [OSDev](https://wiki.osdev.org)
 
 ## 👥 Contributors
-Leader: [TheAirBlow](https://github.com/theairblow)
+[TheAirBlow](https://github.com/theairblow)
