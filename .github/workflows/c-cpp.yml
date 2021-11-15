@@ -1,0 +1,23 @@
+name: Main CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  boot:
+    name: Main
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build bootloader
+      run: make boot
+    - name: Build image
+      run: make image
+    - uses: actions/upload-artifact@v2
+      with:
+        name: corruptOS.img
+        path: bin/corruptOS.img
