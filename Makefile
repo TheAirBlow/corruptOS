@@ -1,23 +1,10 @@
-all:
-	make -C ./bootloader/gnu-efi
-	make -C ./bootloader
-	make -C ./kernel
-	make -C ./kernel buildimg
-
-runall:
-	make -C ./bootloader/gnu-efi
-	make -C ./bootloader
-	make -C ./kernel
-	make -C ./kernel buildimg
-	make -C ./kernel run
-
-bootloader:
-	make -C ./bootloader/gnu-efi
+boot:
+	make -C ./gnu-efi
+	make -C ./gnu-efi/gnuefi
+	make -C ./gnu-efi/inc
+	make -C ./gnu-efi/lib
 	make -C ./bootloader
 
-setup:
-	make -C ./kernel setup
 
-kernel: make -C ./kernel
-buildimg: make -C ./kernel buildimg
-run: make -C ./kernel run
+
+

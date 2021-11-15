@@ -30,8 +30,8 @@
 *.cmd
 *.efi
 .tmp_versions/
-kernel/bin/
-kernel/obj/
+bin/
+obj/
 modules.order
 Module.symvers
 Mkfile.old

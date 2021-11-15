@@ -1,17 +1,18 @@
 SRCDIR = .
+EFIDIR = ../gnu-efi
 VPATH = $(SRCDIR)
-include $(SRCDIR)/gnu-efi/Make.defaults
+include $(EFIDIR)/Make.defaults
 
 CPPFLAGS	+= -D__KERNEL__ -I/usr/src/sys/build/include
-CRTOBJS		= gnu-efi/gnuefi/crt0-efi-$(ARCH).o
-LDSCRIPT	= gnu-efi/gnuefi/elf_$(ARCH)_efi.lds
-LDFLAGS		+= -shared -Bsymbolic -L./gnu-efi/lib -L./gnu-efi/gnuefi $(CRTOBJS)
+CRTOBJS		= $(EFIDIR)/gnuefi/crt0-efi-$(ARCH).o
+LDSCRIPT	= $(EFIDIR)/gnuefi/elf_$(ARCH)_efi.lds
+LDFLAGS		+= -shared -Bsymbolic -L$(EFIDIR)/lib -L$(EFIDIR)/gnuefi $(CRTOBJS)
 LOADLIBES	+= -lefi -lgnuefi
 LOADLIBES	+= $(LIBGCC)
 LOADLIBES	+= -T $(LDSCRIPT)
 TARGET_APPS = main.efi
-INCDIR = -I$(SRCDIR)/gnu-efi -I$(TOPDIR)/gnu-efi/inc -I$(TOPDIR)/gnu-efi/inc/$(ARCH) \
-	 -I$(TOPDIR)/gnu-efi/inc/protocol
+INCDIR = -I$(EFIDIR) -I$(EFIDIR)/inc -I$(EFIDIR)/inc/$(ARCH) \
+	 -I$(EFIDIR)/inc/protocol
 
 ifneq ($(HAVE_EFI_OBJCOPY),)
 FORMAT		:= --target efi-app-$(ARCH)
@@ -33,4 +34,4 @@ clean:
 	rm -f $(TARGETS) *~ *.o *.so
 .PHONY: install
 
-include $(SRCDIR)/gnu-efi/Make.rules
+include $(EFIDIR)/Make.rules
