@@ -1,0 +1,4 @@
+# gdb -x script
+file kernel/bin/main.elf
+target remote localhost:1234
+c
