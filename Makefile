@@ -2,12 +2,20 @@ BUILDDIR = bin
 OSNAME = corruptOS
 OVMFDIR = ovmf
 
+all: boot main image run
+nodbg: boot main image run-nodbg
+norun: boot main image
+
 boot:
 	make -C ./gnu-efi
 	make -C ./gnu-efi/gnuefi
 	make -C ./gnu-efi/inc
 	make -C ./gnu-efi/lib
 	make -C ./bootloader
+
+main: 
+	make -C ./kernel setup
+	make -C ./kernel build
 
 image:
 	@mkdir -p $(BUILDDIR)
@@ -29,9 +37,7 @@ image:
 	mv $(BUILDDIR)/$(OSNAME).img.part $(BUILDDIR)/$(OSNAME).img
 
 run:
+	qemu-system-x86_64 -s -S -drive file=$(BUILDDIR)/$(OSNAME).img,format=raw -m 1024M -cpu qemu64 -drive if=pflash,format=raw,unit=0,file="$(OVMFDIR)/OVMF_CODE-pure-efi.fd",readonly=on -drive if=pflash,format=raw,unit=1,file="$(OVMFDIR)/OVMF_VARS-pure-efi.fd" -net nic
+
+run-nogdb:
 	qemu-system-x86_64 -drive file=$(BUILDDIR)/$(OSNAME).img,format=raw -m 1024M -cpu qemu64 -drive if=pflash,format=raw,unit=0,file="$(OVMFDIR)/OVMF_CODE-pure-efi.fd",readonly=on -drive if=pflash,format=raw,unit=1,file="$(OVMFDIR)/OVMF_VARS-pure-efi.fd" -net nic
-
-runpart:
-	qemu-system-x86_64 -drive file=$(BUILDDIR)/$(OSNAME).img.part,format=raw -m 1024M -cpu qemu64 -drive if=pflash,format=raw,unit=0,file="$(OVMFDIR)/OVMF_CODE-pure-efi.fd",readonly=on -drive if=pflash,format=raw,unit=1,file="$(OVMFDIR)/OVMF_VARS-pure-efi.fd" -net nic
-
-

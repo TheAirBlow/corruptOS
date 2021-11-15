@@ -4,19 +4,26 @@
 
 typedef unsigned long long size_t;
 
-// --------------------------------------------
-// GOP Structures
+/**
+ * @brief Framebuffer structure
+ */
 typedef struct {
-	void* BaseAddress;
-	size_t BufferSize;
-	unsigned int Width;
-	unsigned int Height;
-	unsigned int PixelsPerScanLine;
+	void* base;
+	size_t size;
+	uint32_t width;
+	uint32_t height;
+	uint32_t pps;
 } Framebuffer;
 
-// --------------------------------------------
-// Initialize GOP
+/**
+ * @brief GOP Instance
+ */
 Framebuffer framebuffer;
+
+/**
+ * @brief Initialize GOP
+ * @return Framebuffer structure
+ */
 Framebuffer* InitializeGOP(){
 	EFI_GUID gopGuid = EFI_GRAPHICS_OUTPUT_PROTOCOL_GUID;
 	EFI_GRAPHICS_OUTPUT_PROTOCOL* gop;
@@ -30,17 +37,24 @@ Framebuffer* InitializeGOP(){
 
 	Print(L"GOP located!\n\r");
 
-	framebuffer.BaseAddress = (void*)gop->Mode->FrameBufferBase;
-	framebuffer.BufferSize = gop->Mode->FrameBufferSize;
-	framebuffer.Width = gop->Mode->Info->HorizontalResolution;
-	framebuffer.Height = gop->Mode->Info->VerticalResolution;
-	framebuffer.PixelsPerScanLine = gop->Mode->Info->PixelsPerScanLine;
-
+	framebuffer.base = (void*)gop->Mode->FrameBufferBase;
+	framebuffer.size = gop->Mode->FrameBufferSize;
+	framebuffer.width = gop->Mode->Info->HorizontalResolution;
+	framebuffer.height = gop->Mode->Info->VerticalResolution;
+	framebuffer.pps = gop->Mode->Info->PixelsPerScanLine;
+	
 	return &framebuffer;
 }
 
-// --------------------------------------------
-// Load file or directory
+/**
+ * @brief Load file or directory
+ * 
+ * @param Directory Directory path
+ * @param Path Path to file
+ * @param ImageHandle ImageHandle instance
+ * @param SystemTable SystemTable instance
+ * @return Loaded EFI_FILE*
+ */
 EFI_FILE* LoadFile(EFI_FILE* Directory, CHAR16* Path, EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE* SystemTable){
 	EFI_FILE* LoadedFile;
 
@@ -62,24 +76,35 @@ EFI_FILE* LoadFile(EFI_FILE* Directory, CHAR16* Path, EFI_HANDLE ImageHandle, EF
 
 }
 
-// --------------------------------------------
-// PSF1 Font Structures and Defines
 #define PSF1_MAGIC0 0x36
 #define PSF1_MAGIC1 0x04
 
+/**
+ * @brief PSF1 Header
+ */
 typedef struct {
 	unsigned char magic[2];
 	unsigned char mode;
 	unsigned char charsize;
 } PSF1_HEADER;
 
+/**
+ * @brief PSF1 Font
+ */
 typedef struct {
 	PSF1_HEADER* psf1_Header;
 	void* glyphBuffer;
 } PSF1_FONT;
 
-// --------------------------------------------
-// Load PSF1 Font
+/**
+ * @brief Load PSF1 font
+ * 
+ * @param Directory Directory path
+ * @param Path Path to file
+ * @param ImageHandle ImageHandle instance
+ * @param SystemTable SystemTable instance
+ * @return Loaded PSF1_FONT*
+ */
 PSF1_FONT* LoadPSF1Font(EFI_FILE* Directory, CHAR16* Path, EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE* SystemTable)
 {
 	EFI_FILE* font = LoadFile(Directory, Path, ImageHandle, SystemTable);
@@ -113,8 +138,14 @@ PSF1_FONT* LoadPSF1Font(EFI_FILE* Directory, CHAR16* Path, EFI_HANDLE ImageHandl
 	return finishedFont;
 }
 
-// --------------------------------------------
-// Copy memory from aptr to bptr
+/**
+ * @brief Compare memory
+ * 
+ * @param aptr first base
+ * @param bptr second base
+ * @param n size
+ * @return 0 if equals
+ */
 int memcmp(const void* aptr, const void* bptr, size_t n){
 	const unsigned char* a = aptr, *b = bptr;
 	for (size_t i = 0; i < n; i++){
@@ -124,8 +155,9 @@ int memcmp(const void* aptr, const void* bptr, size_t n){
 	return 0;
 }
 
-// --------------------------------------------
-// Kernel structures
+/**
+ * @brief Structure with useful stuff
+ */
 typedef struct {
     Framebuffer* framebuffer;
     PSF1_FONT* font;
@@ -134,19 +166,24 @@ typedef struct {
     void* kernelEnd;
 } KernelData;
 
-// --------------------------------------------
-// Entry method
+/**
+ * @brief Bootloader entrypoint
+ * 
+ * @param ImageHandle ImageHandle instance
+ * @param SystemTable SystemTable instance
+ * @return EFI_STATUS
+ */
 EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	InitializeLib(ImageHandle, SystemTable);
 
     // --------------------------------------------
     // Loading kernel
-	Print(L"corruptOS Bootloader b1.0\n\r");
+	Print(L"corruptOS Bootloader\n\r\n\r");
 	Print(L"Locating kernel file...\n\r");
-	EFI_FILE* Kernel = LoadFile(LoadFile(NULL, L"kernel", ImageHandle, SystemTable), L"kernel.elf", ImageHandle, SystemTable);
+	EFI_FILE* Kernel = LoadFile(LoadFile(NULL, L"kernel", ImageHandle, SystemTable), L"main.elf", ImageHandle, SystemTable);
 	if (Kernel == NULL){
 		Print(L"Unable to locate kernel file!\n\r");
-        return 1;
+        return EFI_LOAD_ERROR;
 	}
 
 	Print(L"Loading header structure...\n\r");
@@ -176,7 +213,7 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 		header.e_version != EV_CURRENT
 	) {
 		Print(L"Header is invalid!\r\n");
-        return 1;
+        return EFI_LOAD_ERROR;
 	}
 
 	Print(L"Kernel header successfully verified!\r\n");
@@ -218,10 +255,10 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 
     // --------------------------------------------
     // Loading files
-	PSF1_FONT* zapFont = LoadPSF1Font(LoadFile(NULL, L"files", ImageHandle, SystemTable), L"zap-light16.psf", ImageHandle, SystemTable);
+	PSF1_FONT* zapFont = LoadPSF1Font(LoadFile(NULL, L"files", ImageHandle, SystemTable), L"main.psf", ImageHandle, SystemTable);
 	if (zapFont == NULL){
-		Print(L"Unable to locate font file \"files\\zap-light16.psf\"!\n\r");
-		return 1;
+		Print(L"Unable to locate font file \"files\\main.psf\"!\n\r");
+		return EFI_LOAD_ERROR;
 	}
 
 	Print(L"Font file \"files\\zap-light16.psf\" found and loaded!\n\r");

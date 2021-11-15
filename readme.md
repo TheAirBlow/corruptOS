@@ -8,7 +8,7 @@
 </p>
   <h3 align="center">corruptKernel</h3>
   <p align="center">
-  ⚡ corruptKernel is an UEFI kernel (UEFI bootloader)
+  ⚡ corruptKernel | Hobby OS
   <br/>
   <a href="https://github.com/corruptTeam/corruptKernel/issues/new?labels=bug">Report a bug</a>
   |
@@ -28,11 +28,15 @@ There's no OS option available for now, beacuse kernel is incomplete.
 sudo pacman -S base-devel qemu make mtools nasm git
 ```
 ## ❓ How to run
-Run `make` to build everything with `corruptOS.img` fimage ile</br>
-Run `make runall` to build everything and run `corruptOS.img` image file using QEMU
+Run `make norun` to build everything with `corruptOS.img` image file</br>
+Run `make all` to build everything and run `corruptOS.img` image file using QEMU (gdb forced)</br>
+Run `make nodbg` to build everything and run `corruptOS.img` image file using QEMU (gdb disabled)</br>
+Run `make run` to run `corruptOS.img` image file using QEMU (gdb forced)</br>
+Run `make run-nogdb` to run `corruptOS.img` image file using QEMU (gdb disabled)
 ## 📚 Credits
-Kernel Base: [PonchoOS](https://github.com/absurdponcho/ponchoos)</br>
-Tutorials: [OSDev](https://wiki.osdev.org)
+Bootloader: [AbsurdPoncho/PonchoOS](https://github.com/absurdponcho/ponchoos)</br>
+Some kernel stuff: [SteveJ/OSDev](https://github.com/stevej/osdev)</br>
+General: [OSDev Wiki](https://wiki.osdev.org)
 
 ## 👥 Contributors
 [TheAirBlow](https://github.com/theairblow)
