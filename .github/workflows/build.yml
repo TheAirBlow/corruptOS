@@ -9,16 +9,12 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install mtools
       run: sudo apt-get install mtools
-    - name: Build GNU EFI
-      run: make -C ./bootloader/gnu-efi
     - name: Build bootloader
-      run: make -C ./bootloader
-    - name: Setup directories
-      run: make -C ./kernel setup
+      run: make boot
     - name: Build kernel
-      run: make -C ./kernel
+      run: make kernel
     - name: Build image
-      run: make -C ./kernel buildimg
+      run: make image
     - name: Upload kernel.elf
       uses: actions/upload-artifact@v2
       with:
@@ -28,4 +24,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: corruptOS.img
-        path: kernel/bin/corruptOS.img
+        path: bin/corruptOS.img
