@@ -9,7 +9,6 @@
 #include "gop.h"
 
 struct stivale2_struct_tag_framebuffer* framebuffer;
-Point cursorpos;
 
 /**
  * @brief Initialize GOP
