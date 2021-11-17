@@ -16,7 +16,7 @@ jobs:
     - name: Build kernel
       run: make kernel
     - name: Build image
-      run: make image
+      run: sudo make image
     - name: Upload kernel.elf
       uses: actions/upload-artifact@v2
       with:
