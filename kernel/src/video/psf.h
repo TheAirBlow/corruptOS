@@ -1,6 +1,6 @@
 /**
  * @file psf.h 
- * @author TheAirBlow <pilexet.danila@gmail.com>
+ * @author TheAirBlow <theairblow-help@gmail.com>
  * @brief PSF1 stuff
  * 
  * @copyright Copyright TheAirBlow (c) 2021

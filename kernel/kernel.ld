@@ -1,23 +1,40 @@
 OUTPUT_FORMAT(elf64-x86-64)
+OUTPUT_ARCH(i386:x86-64)
 ENTRY(_start)
+PHDRS
+{
+    null    PT_NULL    FLAGS(0) ;
+    text    PT_LOAD    FLAGS((1 << 0) | (1 << 2)) ;
+    rodata  PT_LOAD    FLAGS((1 << 2)) ;
+    data    PT_LOAD    FLAGS((1 << 1) | (1 << 2)) ;
+}
 
 SECTIONS
 {
-	.text : ALIGN(0x1000)
-	{
-		*(.text)
-	}
-	.data : ALIGN(0x1000)
-	{
-		*(.data)
-	}
-	.rodata : ALIGN(0x1000)
-	{
-		*(.rodata)
-	}
-	.bss : ALIGN(0x1000)
-	{
-		*(COMMON)
-		*(.bss)
-	}
+    . = 0xffffffff80000000;
+
+    .text : {
+        *(.text*)
+    } :text
+
+    . += CONSTANT(MAXPAGESIZE);
+
+    .stivale2hdr : {
+        KEEP(*(.stivale2hdr))
+    } :rodata
+
+    .rodata : {
+        *(.rodata*)
+    } :rodata
+
+    . += CONSTANT(MAXPAGESIZE);
+
+    .data : {
+        *(.data*)
+    } :data
+
+    .bss : {
+        *(COMMON)
+        *(.bss*)
+    } :data
 }
